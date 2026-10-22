@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Sanad.Api/Sanad.Api.csproj" />
+    <Project Path="src/Sanad.Application/Sanad.Application.csproj" />
+    <Project Path="src/Sanad.Domain/Sanad.Domain.csproj" />
+    <Project Path="src/Sanad.Infrastructure/Sanad.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Sanad.Tests/Sanad.Tests.csproj" />
+  </Folder>
+</Solution>
