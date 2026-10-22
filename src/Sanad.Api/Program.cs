@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IDocumentTextExtractor, PdfTextExtractor>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Sanad.Application.Interfaces;
 
-namespace Sanad.Application.Interfaces
+public interface IDocumentTextExtractor
 {
-    internal interface IDocumentTextExtractor
-    {
-    }
+    IReadOnlyList<ExtractedPage> Extract(Stream Pdf);
 }
+
+public record ExtractedPage(int PageNumber, string Text);
