@@ -38,7 +38,64 @@ contain enough evidence, it says so instead of guessing.
 4. **Cite**: return the answer with the source file and page for each chunk used.
 
 ## Architecture
-(diagram here)
+## Database Design
+
+```mermaid
+erDiagram
+    USER ||--o{ DOCUMENT : uploads
+    USER ||--o{ CONVERSATION : owns
+    DOCUMENT ||--o{ CHUNK : "split into"
+    CONVERSATION ||--o{ MESSAGE : contains
+    MESSAGE ||--o{ MESSAGE_SOURCE : cites
+    CHUNK ||--o{ MESSAGE_SOURCE : "used in"
+
+    USER {
+        guid Id PK
+        string Email
+        string PasswordHash
+        datetime CreatedAt
+    }
+    DOCUMENT {
+        guid Id PK
+        guid UserId FK
+        string FileName
+        string StoragePath
+        string ContentType
+        long SizeBytes
+        int Status
+        string FailureReason
+        int PageCount
+        datetime UploadedAt
+    }
+    CHUNK {
+        guid Id PK
+        guid DocumentId FK
+        int ChunkIndex
+        int PageNumber
+        string Text
+        vector Embedding
+    }
+    CONVERSATION {
+        guid Id PK
+        guid UserId FK
+        string Title
+        datetime CreatedAt
+    }
+    MESSAGE {
+        guid Id PK
+        guid ConversationId FK
+        int Role
+        string Content
+        bool InsufficientEvidence
+        datetime CreatedAt
+    }
+    MESSAGE_SOURCE {
+        guid Id PK
+        guid MessageId FK
+        guid ChunkId FK
+        float Score
+    }
+```
 
 ## Live Demo
 (link here)
