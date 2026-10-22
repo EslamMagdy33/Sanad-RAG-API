@@ -1,27 +1,58 @@
-# DEPI Graduation Project (Working Title)
+# Sanad (سند)
 
-Team of 5 · Full Stack .NET · 2-week timeline
+**Turn documents into answers you can verify.**
 
-## Candidate Ideas
-| Idea | Summary | AI via API | Risk |
-|---|---|---|---|
-| Sanad | Arabic RAG document Q&A with citations | Core feature | Medium |
-| TenantShield | Automated cross-tenant access testing for multi-tenant APIs | Explain findings + suggest fixes | Medium-High |
-| Sakanak | Student housing booking platform | Smart search, review summaries | Low |
+Sanad is an Arabic-first Retrieval-Augmented Generation (RAG) platform.
+Users upload documents, ask questions in natural language, and get answers
+grounded in their own files, with citations (file name + page) so every
+answer can be checked against its source.
 
-## Decision
-Final idea: _TBD_
-Decision deadline: _TBD_
+## Why Sanad?
+Generic chatbots answer from what the model memorized, and they hallucinate.
+Sanad answers only from the uploaded documents, and when the documents don't
+contain enough evidence, it says so instead of guessing.
 
-## Team
-| Name | GitHub | Role |
-|---|---|---|
-| | | |
+## Features
+- Document upload with background processing (text extraction, chunking, embeddings)
+- Arabic-aware semantic search using vector similarity (pgvector)
+- RAG-based Q&A with streaming responses (SSE)
+- Source citations for every answer
+- Insufficient-evidence handling: "I don't know" instead of hallucination
+- JWT authentication with per-user document isolation
+- Dockerized setup with CI via GitHub Actions
 
-## Rules
-- One branch per feature (`feature/<name>`), merged via Pull Request
-- No direct pushes to `main`
-- Secrets and API keys never committed (use User Secrets)
+## Tech Stack
+| Layer | Technology |
+|---|---|
+| API | ASP.NET Core Web API, C# |
+| AI orchestration | Semantic Kernel / Microsoft.Extensions.AI |
+| Database | PostgreSQL + pgvector, EF Core |
+| Background jobs | Hangfire |
+| Auth | ASP.NET Core Identity + JWT |
+| DevOps | Docker, GitHub Actions |
 
-## Stack (agreed)
-ASP.NET Core Web API · EF Core · SQL Server/PostgreSQL · JWT
+## How It Works
+1. **Ingest**: upload a file, extract text, split into chunks, generate embeddings, store vectors.
+2. **Retrieve**: embed the question, find the most similar chunks.
+3. **Generate**: build a prompt from the retrieved chunks and ask the LLM to answer only from them.
+4. **Cite**: return the answer with the source file and page for each chunk used.
+
+## Architecture
+(diagram here)
+
+## Live Demo
+(link here)
+
+## Evaluation
+Tested on 20 hand-written Arabic questions with known answers:
+- Correct answer: X/20
+- Correct source cited: X/20
+- Correctly refused when no answer exists: X/5
+
+## Getting Started
+(docker compose up instructions here)
+
+## Roadmap
+- Multi-tenant workspaces
+- Conversation history
+- Support for more file types
