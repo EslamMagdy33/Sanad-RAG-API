@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Sanad.Application.Interfaces;
+using Sanad.Infrastructure.Documents;
 using Sanad.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<SanadDbContext>(o =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IDocumentTextExtractor, PdfTextExtractor>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,7 +26,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 
 
 app.Run();
