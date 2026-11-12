@@ -7,6 +7,7 @@ using Sanad.Infrastructure.Auth;
 using Sanad.Infrastructure.Documents;
 using Sanad.Infrastructure.Persistence;
 using Sanad.Infrastructure.Persistence.Identity;
+using Sanad.Infrastructure.Persistence.Repositories;
 
 namespace Sanad.Infrastructure;
 
@@ -23,6 +24,10 @@ public static class DependencyInjection
         services.Configure<JwtSettings>(config.GetSection(JwtSettings.Section));
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IDocumentTextExtractor, PdfTextExtractor>();
+        services.AddScoped<IFileStorage, LocalFileStorage>();
+
+        services.AddScoped<IDocumentRepository, DocumentRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }

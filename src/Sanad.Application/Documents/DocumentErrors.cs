@@ -8,7 +8,7 @@ public static class DocumentErrors
         new("document.empty", "الملف فاضي",ErrorType.Validation);
 
     public static readonly Error TooLarge =
-        new("document.too_large", "حجم الملف أكبر من 10MB", ErrorType.Validation);
+        new("document.too_large", "حجم الملف أكبر من الحد المسموح", ErrorType.Validation);
 
     public static readonly Error UnsupportedType =
         new("document.unsupported_type", "نوع الملف غير مدعوم (PDF أو TXT فقط)", ErrorType.Validation);

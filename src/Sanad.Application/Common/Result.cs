@@ -6,6 +6,11 @@ public class Result
     public Error? Error { get; }
     protected Result(bool isSuccess,Error? error)
     {
+        if (isSuccess && error is not null)
+            throw new InvalidOperationException("Success Result Can not has an error ");
+        if (!isSuccess && error is null)
+            throw new InvalidOperationException("Failure Result must has an error ");
+
         IsSuccess = isSuccess;
         Error = error;
     }

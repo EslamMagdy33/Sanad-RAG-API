@@ -19,9 +19,14 @@ namespace Sanad.Infrastructure.Documents
         }
         public void Delete(string path)
         {
-            var full = Path.GetFullPath(Path.Combine(_root, path));
-            if (full.StartsWith(_root + Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase) && File.Exists(full))
-                File.Delete(full);
+            try
+            {
+                var full = Path.GetFullPath(Path.Combine(_root, path));
+                if (full.StartsWith(_root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) && File.Exists(full))
+                    File.Delete(full);
+            }
+            catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
         }
     }
 }

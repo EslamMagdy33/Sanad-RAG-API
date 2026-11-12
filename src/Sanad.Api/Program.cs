@@ -1,20 +1,19 @@
 
-using Sanad.Application.Interfaces;
-using Sanad.Infrastructure.Documents;
-using Sanad.Infrastructure;
-using Sanad.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Sanad.Api.Endpoints;
 using Microsoft.OpenApi;
-
+using Sanad.Api.Endpoints;
+using Sanad.Application;
+using Sanad.Infrastructure;
+using Sanad.Infrastructure.Auth;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 var jwt = builder.Configuration.GetSection(JwtSettings.Section).Get<JwtSettings>()!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -55,6 +54,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapAuthEndpoints();
+app.MapDocumentEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
