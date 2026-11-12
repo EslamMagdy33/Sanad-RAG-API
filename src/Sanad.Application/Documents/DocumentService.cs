@@ -14,7 +14,7 @@ public class DocumentService(
     public async Task<Result<DocumentDto>> UploadAsync(Guid userId, string fileName, long size,
         Stream content, CancellationToken ct)
     {
-        var safeName = Path.GetFileName(fileName);
+        var safeName = SanitizeFileName(fileName);
         var ext = Path.GetExtension(safeName).ToLowerInvariant();
 
         if (size <= 0) return DocumentErrors.Empty;
@@ -81,7 +81,12 @@ public class DocumentService(
         if (s.CanSeek) s.Position = 0;
         return buffer.SequenceEqual("%PDF-"u8.ToArray());
     }
-
+    private static string SanitizeFileName(string fileName)
+    {
+        // نوحّد الفواصل الأول، لأن Path.GetFileName بيفهم فاصل نظام التشغيل الحالي بس
+        var normalized =fileName.Replace('\\','/');
+        return Path.GetFileName(normalized);
+    }
     private static DocumentDto ToDto(Document d) => new(
         d.Id, d.FileName, d.ContentType, d.SizeBytes,
         d.Status.ToString(), d.FailureReason, d.PageCount, d.UploadedAt);
