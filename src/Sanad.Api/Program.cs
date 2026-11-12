@@ -47,9 +47,12 @@ builder.Services.AddSwaggerGen(o =>
         [new OpenApiSecuritySchemeReference("Bearer", document)] = []
     });
 });
-
+builder.Services.AddCors(o => o.AddPolicy("frontend", p =>
+    p.WithOrigins("http://localhost:5173")
+     .AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();
+app.UseCors("frontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
