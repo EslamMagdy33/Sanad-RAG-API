@@ -1,0 +1,30 @@
+:root {
+  --brand: #9a4d33;
+  --brand-hover: #843f29;
+  --accent: #fbae8e;
+  --brand-soft: #f6e8df;
+  --bg: #fcf9f6;
+  --surface: #ffffff;
+  --ink: #1c1a1e;
+  --ink-soft: #6e6862;
+  --border: #ecdfd5;
+  --border-strong: #e7cfc2;
+  --dark: #1b1819;
+  --dark-card: #262223;
+
+  --success: #2f9e74;
+  --success-soft: #e6f6ef;
+  --warning: #9a6a12;
+  --warning-soft: #fdf3e1;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 2px rgba(28, 26, 30, 0.04), 0 8px 24px rgba(28, 26, 30, 0.06);
+
+  --font-ar: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-en: "Inter", system-ui, sans-serif;
+}
