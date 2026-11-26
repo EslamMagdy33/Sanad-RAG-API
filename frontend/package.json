@@ -1,0 +1,26 @@
+{
+  "name": "sanad-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "gen:api": "openapi-typescript http://localhost:5152/swagger/v1/swagger.json -o src/api/schema.ts"
+  },
+  "dependencies": {
+    "lucide-react": "^0.460.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "openapi-typescript": "^7.4.0",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.0"
+  }
+}
