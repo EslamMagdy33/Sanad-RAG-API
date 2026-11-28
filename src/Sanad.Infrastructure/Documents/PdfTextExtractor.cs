@@ -9,7 +9,7 @@ public class PdfTextExtractor : IDocumentTextExtractor
 {
     public IReadOnlyList<ExtractedPage> Extract(Stream Pdf)
     {
-        using var doc=PdfDocument.Open(Pdf);
+        using var doc = PdfDocument.Open(Pdf);
         var pages= new List<ExtractedPage>();
 
         foreach (var page in doc.GetPages())

@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Sanad.Api.Endpoints;
 using Sanad.Application;
+using Sanad.Application.Interfaces;
 using Sanad.Infrastructure;
 using Sanad.Infrastructure.Auth;
 using System.Text;
@@ -64,6 +65,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+
+    app.MapGet("/dev/ai-check", async (IEmbeddingService emb, ILlmService llm, CancellationToken ct) =>
+    {
+        var v = await emb.EmbedAsync("سياسة الإجازات في الشركة", ct);
+        var sb = new System.Text.StringBuilder();
+        await foreach (var t in llm.StreamAsync("أجب بجملة واحدة بالعربي.", "ما فائدة الموافقات قبل الشراء؟", ct))
+            sb.Append(t);
+        return Results.Ok(new { embeddingDimensions = v.Length, answer = sb.ToString() });
+    });
 }
 if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
